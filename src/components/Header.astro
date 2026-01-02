@@ -1,0 +1,77 @@
+---
+---
+
+<header class="fixed top-0 left-0 w-full z-50 header-glass">
+  <nav class="container mx-auto px-6 lg:px-12 py-6 flex justify-between items-center">
+    <a href="/" class="logo text-2xl lg:text-3xl font-black tracking-tighter jp-text hover:opacity-70 transition-opacity">
+      Mu Curve
+    </a>
+    
+    <ul class="hidden md:flex gap-8 lg:gap-12 text-sm font-light tracking-widest uppercase">
+      <li><a href="#collection" class="nav-link relative">Collection</a></li>
+      <li><a href="#about" class="nav-link relative">Philosophy</a></li>
+      <li><a href="#craft" class="nav-link relative">Craft</a></li>
+      <li><a href="#contact" class="nav-link relative">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-6">
+      <button class="hidden md:block text-sm font-light tracking-widest uppercase hover:opacity-60 transition-opacity">
+        <i class="ph ph-magnifying-glass text-lg"></i>
+      </button>
+      <button class="menu-btn" aria-label="Menu">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<style>
+  .header-glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(0, 0, 0, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: white;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .menu-btn {
+    width: 32px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .menu-line {
+    width: 100%;
+    height: 1px;
+    background: white;
+    transition: all 0.3s ease;
+  }
+
+  .menu-btn:hover .menu-line:first-child {
+    width: 70%;
+  }
+
+  .menu-btn:hover .menu-line:last-child {
+    width: 70%;
+    margin-left: auto;
+  }
+</style>

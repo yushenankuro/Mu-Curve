@@ -1,0 +1,161 @@
+---
+const craftSteps = [
+  {
+    number: '01',
+    title: 'Material Selection',
+    titleJp: '素材選定',
+    desc: 'We source premium organic cotton and linen from traditional Japanese mills with centuries of expertise.',
+    image: 'Natural fibers, sustainable sourcing'
+  },
+  {
+    number: '02',
+    title: 'Pattern Making',
+    titleJp: '型紙作成',
+    desc: 'Each pattern is meticulously crafted by hand, blending traditional kimono-making techniques with modern silhouettes.',
+    image: 'Precision cutting, heritage techniques'
+  },
+  {
+    number: '03',
+    title: 'Dyeing Process',
+    titleJp: '染色工程',
+    desc: 'Natural indigo dyeing methods passed down through generations create unique depth and character in every piece.',
+    image: 'Traditional indigo, artisan crafted'
+  },
+  {
+    number: '04',
+    title: 'Hand Finishing',
+    titleJp: '仕上げ作業',
+    desc: 'Final touches are applied by skilled artisans, ensuring each garment meets our exacting standards of quality.',
+    image: 'Attention to detail, quality assured'
+  },
+];
+---
+
+<section class="craft-section py-32 bg-zinc-950 relative overflow-hidden" data-scroll-section id="craft">
+  <div class="container mx-auto px-6 lg:px-12 mb-16">
+    <div class="max-w-7xl mx-auto">
+      <div data-scroll data-scroll-speed="1">
+        <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">The Process</p>
+        <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 jp-text">
+          伝統工芸
+        </h2>
+        <p class="text-lg md:text-xl text-zinc-400 max-w-3xl">
+          Every garment is a testament to traditional Japanese craftsmanship, where ancient techniques meet contemporary design sensibilities.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Horizontal Scroll Container -->
+  <div class="craft-horizontal-wrapper" data-scroll data-scroll-direction="horizontal" data-scroll-speed="2">
+    <div class="craft-horizontal flex gap-8 pl-6 lg:pl-12">
+      {craftSteps.map((step) => (
+        <div class="craft-card flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[50vw] group">
+          <div class="bg-zinc-900 h-[60vh] lg:h-[70vh] mb-8 relative overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-900"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center space-y-4 p-12">
+                <div class="text-9xl font-black text-white/5 mb-8">{step.number}</div>
+                <p class="text-sm text-zinc-500 tracking-widest uppercase">{step.image}</p>
+              </div>
+            </div>
+            
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+              <button class="border border-white/50 px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-colors">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs text-zinc-600 mb-2">{step.number}</p>
+                <h3 class="text-2xl md:text-3xl font-bold mb-2">{step.title}</h3>
+                <p class="text-lg jp-text text-zinc-500">{step.titleJp}</p>
+              </div>
+            </div>
+            <p class="text-sm text-zinc-400 leading-relaxed">
+              {step.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Progress Indicator -->
+  <div class="container mx-auto px-6 lg:px-12 mt-16">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-4">
+        <div class="flex-1 h-px bg-zinc-800 relative">
+          <div class="craft-progress absolute top-0 left-0 h-full bg-white w-0"></div>
+        </div>
+        <p class="text-xs text-zinc-600">
+          <span class="craft-current">01</span> / 04
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Horizontal scroll animation
+  const horizontalSection = document.querySelector('.craft-horizontal-wrapper');
+  const horizontalContainer = document.querySelector('.craft-horizontal');
+  
+  if (horizontalSection && horizontalContainer) {
+    const scrollWidth = horizontalContainer.scrollWidth - window.innerWidth + 200;
+
+    gsap.to(horizontalContainer, {
+      x: -scrollWidth,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: horizontalSection,
+        start: 'top 20%',
+        end: () => `+=${scrollWidth}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // Progress bar
+    gsap.to('.craft-progress', {
+      width: '100%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: horizontalSection,
+        start: 'top 20%',
+        end: () => `+=${scrollWidth}`,
+        scrub: 1,
+      }
+    });
+  }
+</script>
+
+<style>
+  .craft-horizontal {
+    will-change: transform;
+  }
+
+  @media (max-width: 768px) {
+    .craft-horizontal-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .craft-horizontal-wrapper [data-scroll] {
+      transform: none !important;
+    }
+  }
+</style>

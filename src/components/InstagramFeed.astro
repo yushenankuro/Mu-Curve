@@ -1,0 +1,93 @@
+---
+const instaPosts = [
+  { id: 1, likes: '2.4k' },
+  { id: 2, likes: '3.1k' },
+  { id: 3, likes: '1.8k' },
+  { id: 4, likes: '2.9k' },
+  { id: 5, likes: '4.2k' },
+  { id: 6, likes: '2.7k' },
+];
+---
+
+<section class="instagram-section py-32 bg-zinc-950 relative overflow-hidden" data-scroll-section>
+  <div class="container mx-auto px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16" data-scroll data-scroll-speed="1">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Follow Us</p>
+          <h2 class="text-4xl md:text-6xl lg:text-7xl font-black">
+            @無style
+          </h2>
+        </div>
+        <a 
+          href="https://instagram.com" 
+          target="_blank"
+          class="group flex items-center gap-3 text-sm tracking-[0.2em] uppercase hover:translate-x-2 transition-transform"
+        >
+          <span>View on Instagram</span>
+          <i class="ph ph-arrow-right text-xl"></i>
+        </a>
+      </div>
+
+      <!-- Instagram Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {instaPosts.map((post, index) => (
+          <a 
+            href="https://instagram.com" 
+            target="_blank"
+            class="insta-card group relative aspect-square overflow-hidden bg-zinc-900"
+            data-scroll
+            data-scroll-speed={0.3 + (index % 3) * 0.1}
+          >
+            <!-- Image Placeholder -->
+            <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-900 group-hover:scale-110 transition-transform duration-700"></div>
+            
+            <!-- Pattern Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center text-8xl jp-text text-white/5">
+              和
+            </div>
+
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <div class="text-center">
+                <i class="ph ph-heart-fill text-3xl mb-2"></i>
+                <p class="text-sm font-medium">{post.likes}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-16 text-center" data-scroll data-scroll-speed="0.5">
+        <p class="text-zinc-400 mb-6">Share your style with us</p>
+        <div class="inline-flex items-center gap-2 text-sm tracking-[0.2em] uppercase">
+          <i class="ph ph-hash"></i>
+          <span>MUCSTYLE</span>
+          <span class="text-zinc-600">|</span>
+          <i class="ph ph-hash"></i>
+          <span>MUCURVE_JP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // CSS-based hover instead of GSAP for better performance
+  window.addEventListener('load', () => {
+    const instaCards = document.querySelectorAll('.insta-card');
+
+    instaCards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'scale(0.95)';
+        card.style.transition = 'transform 0.3s ease';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'scale(1)';
+      });
+    });
+  });
+</script>

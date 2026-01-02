@@ -1,0 +1,79 @@
+---
+---
+
+<!-- Custom Cursor (Desktop Only) -->
+<div class="cursor-follower hidden lg:block fixed w-8 h-8 rounded-full border border-white/30 pointer-events-none z-[100] mix-blend-difference"></div>
+<div class="cursor-dot hidden lg:block fixed w-1 h-1 rounded-full bg-white pointer-events-none z-[100] mix-blend-difference"></div>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.innerWidth < 1024) return; // Skip on mobile/tablet
+
+    const follower = document.querySelector('.cursor-follower');
+    const dot = document.querySelector('.cursor-dot');
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+    let dotX = 0;
+    let dotY = 0;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Smooth follow animation
+    function animate() {
+      // Smooth follow for cursor ring
+      const dx = mouseX - followerX;
+      const dy = mouseY - followerY;
+      followerX += dx * 0.1;
+      followerY += dy * 0.1;
+
+      // Instant position for dot
+      dotX = mouseX;
+      dotY = mouseY;
+
+      if (follower && dot) {
+        follower.style.transform = `translate(${followerX - 16}px, ${followerY - 16}px)`;
+        dot.style.transform = `translate(${dotX - 2}px, ${dotY - 2}px)`;
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Scale up on hover for clickable elements
+    const hoverElements = document.querySelectorAll('a, button, [role="button"], .product-card, .collection-item');
+    
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        follower?.classList.add('scale-150');
+        follower?.classList.add('border-white/60');
+      });
+
+      el.addEventListener('mouseleave', () => {
+        follower?.classList.remove('scale-150');
+        follower?.classList.remove('border-white/60');
+      });
+    });
+
+    // Hide default cursor
+    document.body.style.cursor = 'none';
+    document.querySelectorAll('a, button').forEach(el => {
+      (el as HTMLElement).style.cursor = 'none';
+    });
+  });
+</script>
+
+<style>
+  .cursor-follower,
+  .cursor-dot {
+    transition: transform 0.15s ease-out, scale 0.2s ease;
+    will-change: transform;
+  }
+</style>

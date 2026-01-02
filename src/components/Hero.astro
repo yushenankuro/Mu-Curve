@@ -1,0 +1,125 @@
+---
+---
+
+<section class="hero-section relative h-screen overflow-hidden" data-scroll-section>
+  <!-- Background Video Simulation -->
+  <div class="absolute inset-0">
+    <div class="video-bg absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-zinc-800"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/30"></div>
+  
+  <!-- Content -->
+  <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+    <div class="hero-content">
+      <p class="hero-subtitle text-xs md:text-sm tracking-[0.3em] uppercase mb-8 opacity-0" data-scroll data-scroll-speed="1">
+        Timeless Japanese Aesthetics
+      </p>
+      
+      <h1 class="hero-title mb-6">
+        <span class="block text-[15vw] md:text-[12vw] lg:text-[10vw] font-black leading-[0.85] jp-text opacity-0">
+          無
+        </span>
+      </h1>
+
+      <p class="hero-tagline text-sm md:text-base lg:text-lg font-light tracking-wide max-w-2xl mx-auto mb-12 opacity-0" data-scroll data-scroll-speed="0.5">
+        Where ancient philosophy meets modern design.<br class="hidden md:block" />
+        Discover the beauty of imperfection.
+      </p>
+
+      <div class="hero-cta opacity-0">
+        <button class="group relative px-8 py-4 text-xs tracking-[0.2em] uppercase font-light overflow-hidden">
+          <span class="relative z-10 flex items-center gap-3">
+            Explore Collection
+            <i class="ph ph-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+          </span>
+          <div class="absolute inset-0 border border-white/30 group-hover:border-white/60 transition-colors"></div>
+          <div class="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 text-center" data-scroll data-scroll-speed="-2">
+    <div class="scroll-line w-px h-16 bg-white/20 mx-auto mb-3"></div>
+    <p class="text-[10px] tracking-widest uppercase opacity-50">Scroll</p>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  // Loader animation
+  const tl = gsap.timeline();
+  
+  tl.to('.loader-text', {
+    scale: 1.2,
+    opacity: 0.7,
+    duration: 0.8,
+    ease: 'power2.inOut',
+    repeat: 1,
+    yoyo: true
+  })
+  .to('.loader', {
+    opacity: 0,
+    duration: 0.6,
+    ease: 'power2.inOut',
+    onComplete: () => {
+      document.querySelector('.loader')?.remove();
+    }
+  });
+
+  // Simplified hero animations - no conflicts
+  window.addEventListener('load', () => {
+    // Video background gentle animation
+    gsap.to('.video-bg', {
+      scale: 1.05,
+      duration: 15,
+      ease: 'none',
+      repeat: -1,
+      yoyo: true
+    });
+
+    // Hero content fade in
+    const heroElements = ['.hero-subtitle', '.hero-title span', '.hero-tagline', '.hero-cta'];
+    
+    gsap.fromTo(heroElements, 
+      {
+        opacity: 0,
+        y: 30
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: 0.2,
+        delay: 1.5,
+        ease: 'power3.out'
+      }
+    );
+
+    // Scroll indicator
+    gsap.to('.scroll-line', {
+      scaleY: 0,
+      transformOrigin: 'top',
+      duration: 1.5,
+      ease: 'power2.inOut',
+      repeat: -1,
+    });
+  });
+</script>
+
+<style>
+  .hero-subtitle,
+  .hero-tagline,
+  .hero-cta {
+    transform: translateY(30px);
+  }
+
+  .hero-title span {
+    transform: translateY(50px);
+  }
+</style>

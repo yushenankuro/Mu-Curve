@@ -1,0 +1,120 @@
+---
+---
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu fixed inset-0 bg-black z-[60] translate-x-full transition-transform duration-500">
+  <div class="container mx-auto px-6 py-6 h-full flex flex-col">
+    <!-- Close Button -->
+    <div class="flex justify-between items-center mb-12">
+      <div class="text-2xl font-black jp-text">和STYLE</div>
+      <button class="close-menu w-12 h-12 flex items-center justify-center">
+        <i class="ph ph-x text-2xl"></i>
+      </button>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="flex-1 flex flex-col justify-center">
+      <ul class="space-y-8">
+        <li class="menu-item opacity-0 translate-x-8">
+          <a href="#collection" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+            Collection
+          </a>
+        </li>
+        <li class="menu-item opacity-0 translate-x-8">
+          <a href="#about" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+            Philosophy
+          </a>
+        </li>
+        <li class="menu-item opacity-0 translate-x-8">
+          <a href="#craft" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+            Craft
+          </a>
+        </li>
+        <li class="menu-item opacity-0 translate-x-8">
+          <a href="#contact" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+            Contact
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Social Links -->
+    <div class="border-t border-zinc-800 pt-8">
+      <p class="text-xs tracking-[0.2em] uppercase text-zinc-500 mb-4">Follow Us</p>
+      <div class="flex gap-4">
+        <a href="#" class="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-white hover:bg-white/5 transition-all">
+          <i class="ph ph-instagram-logo text-xl"></i>
+        </a>
+        <a href="#" class="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-white hover:bg-white/5 transition-all">
+          <i class="ph ph-twitter-logo text-xl"></i>
+        </a>
+        <a href="#" class="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-white hover:bg-white/5 transition-all">
+          <i class="ph ph-pinterest-logo text-xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import gsap from 'gsap';
+
+  const menuBtn = document.querySelector('.menu-btn');
+  const closeBtn = document.querySelector('.close-menu');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const menuItems = document.querySelectorAll('.menu-item');
+  const menuLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
+
+  // Open menu
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.remove('translate-x-full');
+    document.body.style.overflow = 'hidden';
+    
+    // Animate menu items
+    gsap.to(menuItems, {
+      opacity: 1,
+      x: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      delay: 0.3,
+      ease: 'power3.out'
+    });
+  });
+
+  // Close menu
+  const closeMenu = () => {
+    gsap.to(menuItems, {
+      opacity: 0,
+      x: 8,
+      duration: 0.3,
+      stagger: 0.05,
+      ease: 'power2.in',
+      onComplete: () => {
+        mobileMenu?.classList.add('translate-x-full');
+        document.body.style.overflow = '';
+      }
+    });
+  };
+
+  closeBtn?.addEventListener('click', closeMenu);
+
+  // Close on link click
+  menuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.getAttribute('href');
+      closeMenu();
+      
+      setTimeout(() => {
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    });
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu?.classList.contains('translate-x-full')) {
+      closeMenu();
+    }
+  });
+</script>

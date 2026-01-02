@@ -1,0 +1,158 @@
+---
+---
+
+<!-- Product Quick View Modal -->
+<div class="product-modal fixed inset-0 bg-black/95 backdrop-blur-xl z-[70] opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="container mx-auto px-6 h-full flex items-center justify-center">
+    <div class="modal-content bg-zinc-950 border border-zinc-800 max-w-6xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300">
+      <!-- Close Button -->
+      <button class="close-modal absolute top-6 right-6 w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-white hover:bg-white/5 transition-all z-10">
+        <i class="ph ph-x text-xl"></i>
+      </button>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+        <!-- Left: Image -->
+        <div class="relative aspect-square lg:aspect-auto bg-zinc-900">
+          <img 
+            id="modal-image" 
+            src="" 
+            alt="" 
+            class="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Right: Details -->
+        <div class="p-8 lg:p-12 flex flex-col">
+          <div class="flex-1">
+            <p class="text-xs tracking-[0.2em] uppercase text-zinc-500 mb-4" id="modal-category"></p>
+            <h2 class="text-4xl lg:text-5xl font-black mb-6" id="modal-name"></h2>
+            <p class="text-3xl font-light mb-8" id="modal-price"></p>
+
+            <div class="space-y-6 mb-12">
+              <div>
+                <p class="text-sm text-zinc-500 mb-2">Description</p>
+                <p class="text-zinc-300 leading-relaxed">
+                  Crafted with premium organic cotton and traditional Japanese techniques. 
+                  This piece embodies the perfect balance of heritage and contemporary design, 
+                  featuring clean lines and timeless silhouettes that age beautifully over time.
+                </p>
+              </div>
+
+              <div>
+                <p class="text-sm text-zinc-500 mb-3">Size</p>
+                <div class="flex gap-3">
+                  <button class="size-btn px-6 py-3 border border-zinc-800 text-sm hover:border-white hover:bg-white/5 transition-all">S</button>
+                  <button class="size-btn px-6 py-3 border border-zinc-800 text-sm hover:border-white hover:bg-white/5 transition-all">M</button>
+                  <button class="size-btn px-6 py-3 border border-zinc-800 text-sm hover:border-white hover:bg-white/5 transition-all">L</button>
+                  <button class="size-btn px-6 py-3 border border-zinc-800 text-sm hover:border-white hover:bg-white/5 transition-all">XL</button>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-sm text-zinc-500 mb-2">Features</p>
+                <ul class="space-y-2 text-sm text-zinc-400">
+                  <li class="flex items-center gap-2">
+                    <i class="ph ph-check text-white"></i>
+                    <span>100% Organic Cotton</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="ph ph-check text-white"></i>
+                    <span>Hand-finished Details</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="ph ph-check text-white"></i>
+                    <span>Made in Japan</span>
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="ph ph-check text-white"></i>
+                    <span>Sustainable Production</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="space-y-4">
+            <button class="w-full py-4 bg-white text-black text-sm tracking-[0.2em] uppercase font-medium hover:bg-zinc-200 transition-colors">
+              Add to Cart
+            </button>
+            <button class="w-full py-4 border border-zinc-800 text-sm tracking-[0.2em] uppercase hover:border-white hover:bg-white/5 transition-all">
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector('.product-modal');
+  const modalContent = document.querySelector('.modal-content');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const quickViewBtns = document.querySelectorAll('button:has-text("Quick View"), button:has-text("View Details")');
+  
+  // Size selection
+  const sizeBtns = document.querySelectorAll('.size-btn');
+  sizeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sizeBtns.forEach(b => {
+        b.classList.remove('border-white', 'bg-white/10');
+        b.classList.add('border-zinc-800');
+      });
+      btn.classList.remove('border-zinc-800');
+      btn.classList.add('border-white', 'bg-white/10');
+    });
+  });
+
+  // Open modal function
+  window.openProductModal = (productData) => {
+    document.getElementById('modal-image').src = productData.image;
+    document.getElementById('modal-image').alt = productData.name;
+    document.getElementById('modal-name').textContent = productData.name;
+    document.getElementById('modal-price').textContent = productData.price;
+    document.getElementById('modal-category').textContent = productData.category;
+    
+    modal?.classList.remove('pointer-events-none', 'opacity-0');
+    modalContent?.classList.remove('scale-95');
+    modalContent?.classList.add('scale-100');
+    document.body.style.overflow = 'hidden';
+  };
+
+  // Close modal
+  const closeModal = () => {
+    modal?.classList.add('opacity-0');
+    modalContent?.classList.remove('scale-100');
+    modalContent?.classList.add('scale-95');
+    
+    setTimeout(() => {
+      modal?.classList.add('pointer-events-none');
+      document.body.style.overflow = '';
+    }, 300);
+  };
+
+  closeModalBtn?.addEventListener('click', closeModal);
+  
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal?.classList.contains('pointer-events-none')) {
+      closeModal();
+    }
+  });
+</script>
+
+<style>
+  .modal-content {
+    position: relative;
+  }
+
+  @media (max-height: 700px) {
+    .modal-content {
+      max-height: 95vh;
+    }
+  }
+</style>

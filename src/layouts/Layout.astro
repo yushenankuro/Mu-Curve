@@ -1,0 +1,144 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=Noto+Sans+JP:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+  </head>
+  <body>
+    <div class="loader fixed inset-0 bg-black z-[100] flex items-center justify-center">
+      <div class="loader-text text-4xl font-bold jp-text">和</div>
+    </div>
+    <slot />
+    
+    <script>
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import LocomotiveScroll from 'locomotive-scroll';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Wait for page load
+      window.addEventListener('load', () => {
+        const locoScroll = new LocomotiveScroll({
+          el: document.querySelector('[data-scroll-container]'),
+          smooth: true,
+          smoothMobile: false,
+          multiplier: 0.8,
+          lerp: 0.08,
+          class: 'is-inview',
+          tablet: {
+            smooth: false
+          },
+          smartphone: {
+            smooth: false
+          }
+        });
+
+        // Sync Locomotive with GSAP ScrollTrigger
+        locoScroll.on('scroll', ScrollTrigger.update);
+
+        ScrollTrigger.scrollerProxy('[data-scroll-container]', {
+          scrollTop(value) {
+            return arguments.length
+              ? locoScroll.scrollTo(value, { duration: 0, disableLerp: true })
+              : locoScroll.scroll.instance.scroll.y;
+          },
+          getBoundingClientRect() {
+            return {
+              top: 0,
+              left: 0,
+              width: window.innerWidth,
+              height: window.innerHeight,
+            };
+          },
+          pinType: document.querySelector('[data-scroll-container]').style.transform ? 'transform' : 'fixed',
+        });
+
+        // Update on resize
+        ScrollTrigger.addEventListener('refresh', () => locoScroll.update());
+        
+        // Refresh both after init
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+          locoScroll.update();
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
+  html.has-scroll-smooth {
+    overflow: hidden;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .jp-text {
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .c-scrollbar {
+    display: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #111;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+
+  .grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.03;
+    z-index: 50;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='4' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E");
+  }
+
+  /* Optimize animations */
+  [data-scroll] {
+    will-change: transform;
+  }
+</style>

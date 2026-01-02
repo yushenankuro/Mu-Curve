@@ -1,0 +1,123 @@
+---
+const testimonials = [
+  {
+    id: 1,
+    name: 'Yuki Tanaka',
+    role: 'Fashion Editor, Tokyo',
+    quote: 'The perfect blend of tradition and modernity. Each piece feels like wearing a piece of art.',
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: 'Marcus Chen',
+    role: 'Creative Director',
+    quote: 'Unparalleled quality and attention to detail. These garments age beautifully and tell a story.',
+    rating: 5,
+  },
+  {
+    id: 3,
+    name: 'Sofia Eriksson',
+    role: 'Architect',
+    quote: 'Minimalist yet expressive. The silhouettes are timeless and the craftsmanship is extraordinary.',
+    rating: 5,
+  },
+];
+---
+
+<section class="testimonials-section py-32 bg-black relative" data-scroll-section>
+  <div class="absolute inset-0 opacity-5 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-black jp-text text-white/5">
+      評
+    </div>
+  </div>
+
+  <div class="container mx-auto px-6 lg:px-12 relative z-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-20" data-scroll data-scroll-speed="1">
+        <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Testimonials</p>
+        <h2 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6">
+          What They Say
+        </h2>
+        <p class="text-lg text-zinc-400 max-w-2xl mx-auto">
+          Hear from those who have experienced our commitment to quality and design.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+        {testimonials.map((testimonial, index) => (
+          <div 
+            class="testimonial-card group"
+            data-scroll
+            data-scroll-speed={0.5 + index * 0.1}
+          >
+            <div class="border border-zinc-800 p-8 lg:p-10 relative overflow-hidden h-full flex flex-col hover:border-zinc-600 transition-colors duration-500">
+              <!-- Quote Icon -->
+              <div class="absolute top-6 right-6 text-6xl text-zinc-900 group-hover:text-zinc-800 transition-colors">
+                <i class="ph ph-quotes"></i>
+              </div>
+
+              <!-- Rating -->
+              <div class="flex gap-1 mb-6">
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <i class="ph-fill ph-star text-white text-sm"></i>
+                ))}
+              </div>
+
+              <!-- Quote -->
+              <blockquote class="text-lg md:text-xl leading-relaxed mb-8 flex-grow">
+                "{testimonial.quote}"
+              </blockquote>
+
+              <!-- Author -->
+              <div class="flex items-center gap-4 pt-6 border-t border-zinc-800">
+                <div class="w-12 h-12 rounded-full bg-zinc-800 flex-shrink-0"></div>
+                <div>
+                  <p class="font-medium">{testimonial.name}</p>
+                  <p class="text-sm text-zinc-500">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 pt-24 border-t border-zinc-900" data-scroll data-scroll-speed="0.5">
+        <div class="text-center">
+          <div class="text-5xl md:text-6xl font-black mb-3">5k+</div>
+          <p class="text-sm text-zinc-500 tracking-wide">Happy Customers</p>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl md:text-6xl font-black mb-3">98%</div>
+          <p class="text-sm text-zinc-500 tracking-wide">Satisfaction Rate</p>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl md:text-6xl font-black mb-3 jp-text">15年</div>
+          <p class="text-sm text-zinc-500 tracking-wide">Years of Craft</p>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl md:text-6xl font-black mb-3">4.9</div>
+          <p class="text-sm text-zinc-500 tracking-wide">Average Rating</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Simplified hover - no heavy GSAP animations
+  window.addEventListener('load', () => {
+    const cards = document.querySelectorAll('.testimonial-card');
+
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-8px)';
+        card.style.transition = 'transform 0.4s ease';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+      });
+    });
+  });
+</script>
