@@ -35,20 +35,30 @@ const featured = [
 <section class="py-32 bg-black relative" data-scroll-section id="collection">
   <div class="container mx-auto px-6 lg:px-12">
     <div class="max-w-7xl mx-auto">
-      <div class="mb-20" data-scroll data-scroll-speed="1">
+      <div class="text-center mb-20" data-scroll data-scroll-speed="1">
         <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Latest Collections</p>
-        <h2 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight jp-text">
+        <h2 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight jp-text mb-6">
           四季折々
         </h2>
-        <p class="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl">
+        <p class="text-lg md:text-xl text-zinc-400 mt-6 max-w-2xl mx-auto mb-8">
           Each collection tells a story of transformation, inspired by the changing seasons and timeless Japanese philosophy.
         </p>
+        
+        <!-- LINK KE SHOWCASE PAGE -->
+        <a 
+          href="/showcase" 
+          class="inline-flex items-center gap-3 text-sm tracking-[0.2em] uppercase border border-zinc-800 px-8 py-4 hover:border-white hover:bg-white/5 transition-all group"
+        >
+          View All Collections
+          <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+        </a>
       </div>
 
       <div class="space-y-1">
         {collections.map((collection, index) => (
-          <div 
-            class="collection-item group cursor-pointer border-t border-zinc-800 hover:border-zinc-600 transition-colors"
+          <a 
+            href="/showcase"
+            class="collection-item group cursor-pointer border-t border-zinc-800 hover:border-zinc-600 transition-colors block"
             data-scroll
             data-scroll-speed={0.5 + index * 0.1}
           >
@@ -75,7 +85,7 @@ const featured = [
                 <i class="ph ph-arrow-right text-xl opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-500"></i>
               </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -147,8 +157,7 @@ const featured = [
           不完全の美
         </h2>
         <p class="text-lg md:text-xl text-zinc-300 leading-relaxed mb-8">
-          Inspired by Japanese philosophy, MU CURVE explores the beauty found in absence and imperfection.
-          Our designs strip away the unnecessary, leaving only form, function, and meaning.
+          Wabi-sabi teaches us that nothing lasts, nothing is finished, and nothing is perfect. Our garments embrace this philosophy, celebrating natural materials, honest construction, and the beauty that emerges through use and time.
         </p>
         <p class="text-base text-zinc-400 leading-relaxed">
           Each piece is designed to age gracefully, developing character and telling your unique story. We reject fast fashion in favor of timeless design that honors both tradition and innovation.

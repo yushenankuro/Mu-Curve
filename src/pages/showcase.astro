@@ -1,0 +1,524 @@
+---
+// Showcase.astro - Complete Page Layout with Cursor & Locomotive
+
+const showcaseItems = [
+  {
+    id: 1,
+    title: 'Timeless Elegance',
+    titleJp: '永遠の優雅さ',
+    category: 'Spring 2024',
+    description: 'Where tradition meets contemporary minimalism',
+    image: 'Flowing fabrics, natural tones'
+  },
+  {
+    id: 2,
+    title: 'Urban Heritage',
+    titleJp: '都市の遺産',
+    category: 'Urban Collection',
+    description: 'Modern silhouettes rooted in craftsmanship',
+    image: 'Structured forms, clean lines'
+  },
+  {
+    id: 3,
+    title: 'Artisan Soul',
+    titleJp: '職人の魂',
+    category: 'Heritage Line',
+    description: 'Hand-finished pieces with timeless appeal',
+    image: 'Indigo dye, traditional weaving'
+  },
+  {
+    id: 4,
+    title: 'Minimal Form',
+    titleJp: 'ミニマル形式',
+    category: 'Essentials',
+    description: 'Essential pieces for everyday luxury',
+    image: 'Pure design, quality materials'
+  },
+  {
+    id: 5,
+    title: 'Natural Flow',
+    titleJp: '自然な流れ',
+    category: 'Summer 2024',
+    description: 'Breathable layers for warm seasons',
+    image: 'Lightweight linen, organic cotton'
+  },
+  {
+    id: 6,
+    title: 'Silent Strength',
+    titleJp: '静かな強さ',
+    category: 'Winter Collection',
+    description: 'Refined warmth with understated power',
+    image: 'Heavy canvas, wool blends'
+  },
+];
+
+const stats = [
+  { number: '2019', label: 'Established' },
+  { number: '500+', label: 'Pieces Created' },
+  { number: '12', label: 'Artisan Partners' },
+  { number: '98%', label: 'Satisfaction Rate' },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Showcase - MU CURVE</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Mincho&display=swap" rel="stylesheet">
+  
+  <!-- Locomotive Scroll CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+  
+  <style>
+      body {
+    font-family: 'Sawarabi Mincho', serif;
+  }
+
+    .jp-text {
+      font-family:  'Sawarabi Mincho', serif;
+    }
+    
+    /* Locomotive Scroll Smooth */
+    html.has-scroll-smooth {
+      overflow: hidden;
+    }
+    
+    html.has-scroll-dragging {
+      user-select: none;
+    }
+    
+    .has-scroll-smooth body {
+      overflow: hidden;
+    }
+    
+    .has-scroll-smooth [data-scroll-container] {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body class="bg-black text-white">
+  <!-- Custom Cursor (Desktop Only) -->
+  <div class="cursor-follower hidden lg:block fixed w-8 h-8 rounded-full border border-white/30 pointer-events-none z-[100] mix-blend-difference"></div>
+  <div class="cursor-dot hidden lg:block fixed w-1 h-1 rounded-full bg-white pointer-events-none z-[100] mix-blend-difference"></div>
+
+  <!-- Locomotive Scroll Container -->
+  <div data-scroll-container>
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-black relative flex items-center justify-center overflow-hidden" data-scroll-section>
+      <div class="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black"></div>
+      
+      <!-- Back Button -->
+      <a 
+        href="/" 
+        class="absolute top-8 left-8 z-20 flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-zinc-400 hover:text-white transition-colors group"
+        data-scroll
+        data-scroll-speed="1"
+      >
+        <i class="ph ph-arrow-left text-lg group-hover:-translate-x-1 transition-transform"></i>
+        Back to Home
+      </a>
+      
+      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+        <div class="max-w-7xl mx-auto text-center">
+          <div data-scroll data-scroll-speed="2">
+            <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-8 animate-fade-in">
+              Showcase Collection
+            </p>
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black mb-8 jp-text leading-none animate-slide-up">
+              作品展示
+            </h1>
+            <p class="text-lg md:text-2xl text-zinc-400 max-w-3xl mx-auto animate-fade-in-delay">
+              A curated selection of our finest work, showcasing the intersection of tradition and innovation
+            </p>
+          </div>
+
+          <div class="mt-16 flex flex-wrap justify-center gap-4 animate-fade-in-delay-2">
+            <button class="px-8 py-4 border border-white/20 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">
+              Explore Collection
+            </button>
+            <button class="px-8 py-4 bg-white text-black text-xs tracking-[0.2em] uppercase hover:bg-zinc-200 transition-all duration-300">
+              Shop Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce" data-scroll data-scroll-speed="-1">
+        <div class="w-6 h-10 border border-white/30 rounded-full flex justify-center pt-2">
+          <div class="w-1 h-3 bg-white/50 rounded-full"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-zinc-950 border-y border-zinc-800" data-scroll-section>
+      <div class="container mx-auto px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div 
+                class="text-center stat-item"
+                data-scroll
+                data-scroll-speed={0.5 + index * 0.1}
+              >
+                <h3 class="text-4xl md:text-5xl lg:text-6xl font-black mb-2">
+                  {stat.number}
+                </h3>
+                <p class="text-xs md:text-sm text-zinc-500 tracking-wider uppercase">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Showcase Grid -->
+    <section class="py-24 md:py-32 bg-black" data-scroll-section>
+      <div class="container mx-auto px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-20" data-scroll data-scroll-speed="1">
+            <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Featured Work</p>
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6">
+              Signature Pieces
+            </h2>
+            <p class="text-lg md:text-xl text-zinc-400 max-w-2xl">
+              Each piece represents hours of dedicated craftsmanship and timeless design philosophy
+            </p>
+          </div>
+
+          <!-- Masonry-style Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {showcaseItems.map((item, index) => (
+              <div 
+                class={`showcase-card group ${index % 3 === 0 ? 'lg:row-span-2' : ''}`}
+                data-scroll
+                data-scroll-speed={0.3 + (index % 3) * 0.2}
+              >
+                <!-- Image Container -->
+                <div class={`bg-zinc-900 mb-6 relative overflow-hidden ${index % 3 === 0 ? 'aspect-[3/5]' : 'aspect-[4/3]'}`}>
+                  <!-- Background -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 via-zinc-900 to-black"></div>
+                  
+                  <!-- Large Number -->
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-9xl font-black text-white/5 group-hover:text-white/10 transition-all duration-700">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <!-- Category Badge -->
+                  <div class="absolute top-6 left-6 px-4 py-2 bg-black/50 backdrop-blur-sm border border-white/10">
+                    <p class="text-xs tracking-wider uppercase">{item.category}</p>
+                  </div>
+
+                  <!-- Image Label -->
+                  <div class="absolute bottom-6 left-6 right-6">
+                    <p class="text-xs text-zinc-400">{item.image}</p>
+                  </div>
+
+                  <!-- Hover Overlay -->
+                  <div class="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                    <div class="text-center space-y-4 px-6">
+                      <button class="px-6 py-3 border border-white/50 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300">
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-3">
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1">
+                      <h3 class="text-xl md:text-2xl lg:text-3xl font-bold mb-2 group-hover:translate-x-2 transition-transform duration-300">
+                        {item.title}
+                      </h3>
+                      <p class="text-base md:text-lg jp-text text-zinc-500 group-hover:text-zinc-400 transition-colors duration-300">
+                        {item.titleJp}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div class="h-px bg-zinc-800 w-12 group-hover:w-24 group-hover:bg-white transition-all duration-500"></div>
+                  
+                  <p class="text-sm text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-32 bg-zinc-950 relative overflow-hidden" data-scroll-section>
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-zinc-950 to-zinc-950"></div>
+      
+      <div class="container mx-auto px-6 lg:px-12 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <div data-scroll data-scroll-speed="2">
+            <h2 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 jp-text leading-tight">
+              始めましょう
+            </h2>
+            <p class="text-lg md:text-xl text-zinc-400 mb-12 max-w-2xl mx-auto">
+              Experience the perfect blend of traditional craftsmanship and modern design. 
+              Discover pieces that tell your story.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="px-10 py-5 bg-white text-black text-sm tracking-[0.2em] uppercase hover:bg-zinc-200 transition-all duration-300 font-medium">
+                Browse Collection
+              </button>
+              <a 
+                href="/"
+                class="px-10 py-5 border border-white/20 text-sm tracking-[0.2em] uppercase hover:bg-white/5 transition-all duration-300 inline-block"
+              >
+                Back to Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Info -->
+    <section class="py-20 bg-black border-t border-zinc-800" data-scroll-section>
+      <div class="container mx-auto px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div data-scroll data-scroll-speed="0.5">
+              <h4 class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Philosophy</h4>
+              <p class="text-sm text-zinc-400 leading-relaxed">
+                Embracing imperfection and finding beauty in simplicity through mindful design.
+              </p>
+            </div>
+            
+            <div data-scroll data-scroll-speed="0.7">
+              <h4 class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Craftsmanship</h4>
+              <p class="text-sm text-zinc-400 leading-relaxed">
+                Every piece is crafted with traditional techniques passed down through generations.
+              </p>
+            </div>
+            
+            <div data-scroll data-scroll-speed="0.9">
+              <h4 class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">Sustainability</h4>
+              <p class="text-sm text-zinc-400 leading-relaxed">
+                Using organic materials and ethical production to create lasting garments.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Locomotive Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  
+  <script>
+    window.addEventListener('load', () => {
+      // Initialize Locomotive Scroll
+      const scroll = new LocomotiveScroll({
+        el: document.querySelector('[data-scroll-container]'),
+        smooth: true,
+        multiplier: 1,
+        class: 'is-reveal',
+        smartphone: {
+          smooth: false
+        },
+        tablet: {
+          smooth: false
+        }
+      });
+
+      // Custom Cursor (Desktop Only)
+      if (window.innerWidth >= 1024) {
+        const follower = document.querySelector('.cursor-follower');
+        const dot = document.querySelector('.cursor-dot');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let followerX = 0;
+        let followerY = 0;
+        let dotX = 0;
+        let dotY = 0;
+
+        // Track mouse position
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        // Smooth follow animation
+        function animate() {
+          // Smooth follow for cursor ring
+          const dx = mouseX - followerX;
+          const dy = mouseY - followerY;
+          followerX += dx * 0.1;
+          followerY += dy * 0.1;
+
+          // Instant position for dot
+          dotX = mouseX;
+          dotY = mouseY;
+
+          if (follower && dot) {
+            follower.style.transform = `translate(${followerX - 16}px, ${followerY - 16}px)`;
+            dot.style.transform = `translate(${dotX - 2}px, ${dotY - 2}px)`;
+          }
+
+          requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Scale up on hover for clickable elements
+        const hoverElements = document.querySelectorAll('a, button, [role="button"], .showcase-card');
+        
+        hoverElements.forEach(el => {
+          el.addEventListener('mouseenter', () => {
+            follower?.classList.add('scale-150');
+            follower?.classList.add('border-white/60');
+          });
+
+          el.addEventListener('mouseleave', () => {
+            follower?.classList.remove('scale-150');
+            follower?.classList.remove('border-white/60');
+          });
+        });
+
+        // Hide default cursor
+        document.body.style.cursor = 'none';
+        document.querySelectorAll('a, button').forEach(el => {
+          el.style.cursor = 'none';
+        });
+      }
+
+      // GSAP Hover interactions for showcase cards
+      const showcaseCards = document.querySelectorAll('.showcase-card');
+      
+      showcaseCards.forEach((card) => {
+        const number = card.querySelector('span');
+        
+        card.addEventListener('mouseenter', () => {
+          if (number) {
+            gsap.to(number, {
+              scale: 1.1,
+              rotation: 5,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          if (number) {
+            gsap.to(number, {
+              scale: 1,
+              rotation: 0,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* Cursor Styles */
+    .cursor-follower,
+    .cursor-dot {
+      transition: transform 0.15s ease-out, scale 0.2s ease;
+      will-change: transform;
+    }
+
+    /* Page Animations */
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 1s ease-out forwards;
+    }
+
+    .animate-fade-in-delay {
+      animation: fade-in 1s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
+    .animate-fade-in-delay-2 {
+      animation: fade-in 1s ease-out 0.6s forwards;
+      opacity: 0;
+    }
+
+    .animate-slide-up {
+      animation: slide-up 1s ease-out 0.2s forwards;
+      opacity: 0;
+    }
+
+    .showcase-card {
+      opacity: 0;
+      animation: fade-in 0.8s ease-out forwards;
+    }
+
+    .showcase-card:nth-child(1) { animation-delay: 0.1s; }
+    .showcase-card:nth-child(2) { animation-delay: 0.2s; }
+    .showcase-card:nth-child(3) { animation-delay: 0.3s; }
+    .showcase-card:nth-child(4) { animation-delay: 0.4s; }
+    .showcase-card:nth-child(5) { animation-delay: 0.5s; }
+    .showcase-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .showcase-card {
+      transition: transform 0.3s ease;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .stat-item {
+      opacity: 0;
+      animation: fade-in 0.8s ease-out forwards;
+    }
+
+    .stat-item:nth-child(1) { animation-delay: 0.1s; }
+    .stat-item:nth-child(2) { animation-delay: 0.2s; }
+    .stat-item:nth-child(3) { animation-delay: 0.3s; }
+    .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .showcase-card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</body>
+</html>

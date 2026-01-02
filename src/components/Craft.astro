@@ -31,8 +31,9 @@ const craftSteps = [
 ];
 ---
 
-<section class="craft-section py-32 bg-zinc-950 relative overflow-hidden" data-scroll-section id="craft">
-  <div class="container mx-auto px-6 lg:px-12 mb-16">
+<section class="craft-section py-24 md:py-32 bg-zinc-950 relative overflow-hidden" data-scroll-section id="craft">
+  <!-- Header -->
+  <div class="container mx-auto px-6 lg:px-12 mb-20">
     <div class="max-w-7xl mx-auto">
       <div data-scroll data-scroll-speed="1">
         <p class="text-xs tracking-[0.3em] uppercase text-zinc-500 mb-4">The Process</p>
@@ -46,116 +47,118 @@ const craftSteps = [
     </div>
   </div>
 
-  <!-- Horizontal Scroll Container -->
-  <div class="craft-horizontal-wrapper" data-scroll data-scroll-direction="horizontal" data-scroll-speed="2">
-    <div class="craft-horizontal flex gap-8 pl-6 lg:pl-12">
-      {craftSteps.map((step) => (
-        <div class="craft-card flex-shrink-0 w-[85vw] md:w-[70vw] lg:w-[50vw] group">
-          <div class="bg-zinc-900 h-[60vh] lg:h-[70vh] mb-8 relative overflow-hidden">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-900"></div>
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="text-center space-y-4 p-12">
-                <div class="text-9xl font-black text-white/5 mb-8">{step.number}</div>
-                <p class="text-sm text-zinc-500 tracking-widest uppercase">{step.image}</p>
+  <!-- Grid Layout -->
+  <div class="container mx-auto px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        {craftSteps.map((step, index) => (
+          <div 
+            class="craft-card group" 
+            data-scroll 
+            data-scroll-speed={(index % 2 === 0) ? "1" : "0.5"}
+          >
+            <!-- Image Container -->
+            <div class="bg-zinc-900 aspect-[4/3] mb-6 relative overflow-hidden rounded-sm">
+              <!-- Background Pattern -->
+              <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-900"></div>
+              
+              <!-- Content -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center space-y-4 p-8">
+                  <div class="text-8xl md:text-9xl font-black text-white/5 mb-6 transition-all duration-700 group-hover:scale-110 group-hover:text-white/10">
+                    {step.number}
+                  </div>
+                  <p class="text-xs md:text-sm text-zinc-500 tracking-widest uppercase">
+                    {step.image}
+                  </p>
+                </div>
               </div>
-            </div>
-            
-            <!-- Hover Overlay -->
-            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-              <button class="border border-white/50 px-8 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-colors">
-                View Details
-              </button>
-            </div>
-          </div>
+              
+              <!-- Hover Overlay -->
+              <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                <button class="border border-white/50 px-6 py-3 text-xs tracking-[0.2em] uppercase hover:bg-white hover:text-black transition-all duration-300 transform group-hover:scale-105">
+                  View Details
+                </button>
+              </div>
 
-          <div class="space-y-4">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <p class="text-xs text-zinc-600 mb-2">{step.number}</p>
-                <h3 class="text-2xl md:text-3xl font-bold mb-2">{step.title}</h3>
-                <p class="text-lg jp-text text-zinc-500">{step.titleJp}</p>
+              <!-- Number Badge -->
+              <div class="absolute top-4 left-4 w-12 h-12 bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-xs font-bold">
+                {step.number}
               </div>
             </div>
-            <p class="text-sm text-zinc-400 leading-relaxed">
-              {step.desc}
-            </p>
+
+            <!-- Text Content -->
+            <div class="space-y-4">
+              <div class="space-y-2">
+                <h3 class="text-2xl md:text-3xl lg:text-4xl font-bold group-hover:text-white transition-colors duration-300">
+                  {step.title}
+                </h3>
+                <p class="text-lg md:text-xl jp-text text-zinc-500 group-hover:text-zinc-400 transition-colors duration-300">
+                  {step.titleJp}
+                </p>
+              </div>
+              
+              <div class="h-px bg-zinc-800 w-16 group-hover:w-32 group-hover:bg-white transition-all duration-500"></div>
+              
+              <p class="text-sm md:text-base text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">
+                {step.desc}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 
-  <!-- Progress Indicator -->
-  <div class="container mx-auto px-6 lg:px-12 mt-16">
+  <!-- Bottom Decoration -->
+  <div class="container mx-auto px-6 lg:px-12 mt-20">
     <div class="max-w-7xl mx-auto">
-      <div class="flex items-center gap-4">
-        <div class="flex-1 h-px bg-zinc-800 relative">
-          <div class="craft-progress absolute top-0 left-0 h-full bg-white w-0"></div>
-        </div>
-        <p class="text-xs text-zinc-600">
-          <span class="craft-current">01</span> / 04
-        </p>
+      <div class="grid grid-cols-4 gap-2">
+        {craftSteps.map((step, index) => (
+          <div 
+            class="h-1 bg-zinc-800 transition-all duration-500 hover:bg-white"
+            style={`animation-delay: ${index * 0.1}s`}
+          ></div>
+        ))}
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Horizontal scroll animation
-  const horizontalSection = document.querySelector('.craft-horizontal-wrapper');
-  const horizontalContainer = document.querySelector('.craft-horizontal');
-  
-  if (horizontalSection && horizontalContainer) {
-    const scrollWidth = horizontalContainer.scrollWidth - window.innerWidth + 200;
-
-    gsap.to(horizontalContainer, {
-      x: -scrollWidth,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: horizontalSection,
-        start: 'top 20%',
-        end: () => `+=${scrollWidth}`,
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      }
-    });
-
-    // Progress bar
-    gsap.to('.craft-progress', {
-      width: '100%',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: horizontalSection,
-        start: 'top 20%',
-        end: () => `+=${scrollWidth}`,
-        scrub: 1,
-      }
-    });
-  }
-</script>
-
 <style>
-  .craft-horizontal {
-    will-change: transform;
+  .craft-card {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .craft-card:nth-child(1) { animation-delay: 0.1s; }
+  .craft-card:nth-child(2) { animation-delay: 0.2s; }
+  .craft-card:nth-child(3) { animation-delay: 0.3s; }
+  .craft-card:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth hover transitions */
+  .craft-card {
+    transition: transform 0.3s ease;
+  }
+
+  .craft-card:hover {
+    transform: translateY(-8px);
   }
 
   @media (max-width: 768px) {
-    .craft-horizontal-wrapper {
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .craft-horizontal-wrapper [data-scroll] {
-      transform: none !important;
+    .craft-card:hover {
+      transform: none;
     }
   }
 </style>
