@@ -21,17 +21,17 @@
           </a>
         </li>
         <li class="menu-item opacity-0 translate-x-8">
-          <a href="/" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+          <a href="#about" class="menu-section-link text-5xl font-bold hover:text-zinc-500 transition-colors block">
             Philosophy
           </a>
         </li>
         <li class="menu-item opacity-0 translate-x-8">
-          <a href="/" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+          <a href="#craft" class="menu-section-link text-5xl font-bold hover:text-zinc-500 transition-colors block">
             Craft
           </a>
         </li>
         <li class="menu-item opacity-0 translate-x-8">
-          <a href="/" class="text-5xl font-bold hover:text-zinc-500 transition-colors block">
+          <a href="#contact" class="menu-section-link text-5xl font-bold hover:text-zinc-500 transition-colors block">
             Contact
           </a>
         </li>
@@ -64,6 +64,7 @@
   const mobileMenu = document.querySelector('.mobile-menu');
   const menuItems = document.querySelectorAll('.menu-item');
   const menuLinks = document.querySelectorAll('.mobile-menu a');
+  const sectionLinks = document.querySelectorAll('.menu-section-link');
 
   // Open menu
   menuBtn?.addEventListener('click', () => {
@@ -98,11 +99,35 @@
 
   closeBtn?.addEventListener('click', closeMenu);
 
-  // Close on link click
-  menuLinks.forEach(link => {
-    link.addEventListener('click', () => {
+  // Close on link click (for section links, scroll to section)
+  sectionLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
       closeMenu();
+      
+      // Check if we're on homepage
+      if (window.location.pathname === '/') {
+        setTimeout(() => {
+          const target = document.querySelector(targetId || '');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 500);
+      } else {
+        // Navigate to homepage with hash
+        window.location.href = '/' + targetId;
+      }
     });
+  });
+
+  // For collection link, just navigate normally
+  menuLinks.forEach(link => {
+    if (!link.classList.contains('menu-section-link')) {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    }
   });
 
   // Close on escape

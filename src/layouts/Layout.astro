@@ -32,6 +32,18 @@ const { title } = Astro.props;
 
       gsap.registerPlugin(ScrollTrigger);
 
+      // Check if page has been loaded before in this session
+      const hasLoadedBefore = sessionStorage.getItem('hasLoaded');
+      const loader = document.querySelector('.loader');
+
+      if (hasLoadedBefore) {
+        // Skip loader if already loaded before
+        loader?.remove();
+      } else {
+        // Show loader only on first visit
+        sessionStorage.setItem('hasLoaded', 'true');
+      }
+
       // Wait for page load
       window.addEventListener('load', () => {
         const locoScroll = new LocomotiveScroll({
@@ -77,6 +89,16 @@ const { title } = Astro.props;
           ScrollTrigger.refresh();
           locoScroll.update();
         }, 500);
+
+        // Hide default cursor on desktop
+        if (window.innerWidth >= 1024) {
+          document.body.style.cursor = 'none';
+          const clickableElements = document.querySelectorAll('a, button');
+          clickableElements.forEach(el => {
+            const element = el;
+            element.style.cursor = 'none';
+          });
+        }
       });
     </script>
   </body>
@@ -98,14 +120,14 @@ const { title } = Astro.props;
   }
 
   body {
-    font-family: 'Sawarabi Mincho', serif;
+    font-family: "Sawarabi Mincho", serif;
     background: #000;
     color: #fff;
     overflow-x: hidden;
   }
 
   .jp-text {
-    font-family: 'Sawarabi Mincho', serif;
+    font-family: "Sawarabi Mincho", serif;
   }
 
   .c-scrollbar {
@@ -140,5 +162,32 @@ const { title } = Astro.props;
   /* Optimize animations */
   [data-scroll] {
     will-change: transform;
+  }
+
+  /* Loader Animation */
+  .loader {
+    animation: fadeOut 0.8s ease-out 1.5s forwards;
+  }
+
+  .loader-text {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.1);
+    }
   }
 </style>
